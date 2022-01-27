@@ -9,6 +9,9 @@ import { CalendarEvent } from './CalendarEvent';
 import { messages } from './../../helpers/calendar-messages-es';
 import { CalendarModal } from './CalendarModal';
 
+import { useDispatch } from 'react-redux';
+import { uiOpenModal } from './../../actions/ui';
+
 moment.locale('es');
 
 
@@ -33,6 +36,8 @@ export const CalendarScreen = () => {
    const [lastView, setLastView] = useState(localStorage.getItem('lastView'));
    console.log( 'lastView', lastView );
 
+   const dispatch = useDispatch();
+
   const eventsStyleGetter = ( event, start, end, isSelected )=>{
    
     // console.log( event, start, end, isSelected );
@@ -53,6 +58,10 @@ export const CalendarScreen = () => {
 
   const onDobleClick = ( e )=>{
       console.log(e);
+      console.log('abrir modal');
+      dispatch( uiOpenModal() );
+
+
   }
 
   const onSelect = (e)=>{
