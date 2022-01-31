@@ -9,26 +9,16 @@ import { CalendarEvent } from './CalendarEvent';
 import { messages } from './../../helpers/calendar-messages-es';
 import { CalendarModal } from './CalendarModal';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { uiOpenModal } from './../../actions/ui';
+import { eventSetActive, eventClearActiveEvent  } from '../../actions/events';
+import { AddNewFab } from './../ui/AddNewFab';
+import { DeleteEventFab } from '../ui/DeleteEventFab';
 
 moment.locale('es');
 
 
 const localizer = momentLocalizer(moment);
-
-const events = [{
-  title: 'Cumpleaños del compañero',
-  start: moment().toDate(),
-  end: moment().add(2, 'hours').toDate(),
-  bgcolor: '#fafafa',
-  notes: 'Comprar regalo',
-  user: {
-     _id: '123',
-     name: 'Ivan'
-  }
-}]
-
 
 
 export const CalendarScreen = () => {
@@ -37,6 +27,10 @@ export const CalendarScreen = () => {
    console.log( 'lastView', lastView );
 
    const dispatch = useDispatch();
+
+   //lee los eventos del store
+   const { events, activeEvent } = useSelector( state => state.calendar );
+ 
 
   const eventsStyleGetter = ( event, start, end, isSelected )=>{
    
@@ -57,15 +51,16 @@ export const CalendarScreen = () => {
 
 
   const onDobleClick = ( e )=>{
-      console.log(e);
-      console.log('abrir modal');
+      // console.log(e);
       dispatch( uiOpenModal() );
 
 
   }
 
   const onSelect = (e)=>{
-     console.log(e);
+
+     dispatch( eventSetActive( e ) );
+
 
   }
   const onViewChange = (e)=>{
@@ -74,10 +69,16 @@ export const CalendarScreen = () => {
 
   }
 
+  const onSelectSlot = (e)=>{
+      console.log(e);
+      dispatch( eventClearActiveEvent() );
+  }
+
 
   return <div className='calendar-screen'>
 
       <Navbar/>
+      
 
       <Calendar
          localizer={localizer}
@@ -88,6 +89,8 @@ export const CalendarScreen = () => {
          eventPropGetter={eventsStyleGetter}
          onDoubleClickEvent={onDobleClick}
          onSelectEvent={onSelect}
+         onSelectSlot={ onSelectSlot }
+         selectable={ true }
          onView={ onViewChange }
          view={lastView || 'month'}
          // style={{ height: 100vh }}
@@ -95,6 +98,10 @@ export const CalendarScreen = () => {
             event: CalendarEvent
          }}
       />
+
+      <AddNewFab />
+
+      { (activeEvent) && <DeleteEventFab /> }
 
       <CalendarModal/>
 
