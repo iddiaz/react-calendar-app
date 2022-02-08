@@ -5,7 +5,7 @@ import moment from 'moment';
 import Swal from 'sweetalert2';
 import { useSelector, useDispatch } from 'react-redux';
 import { uiCloseModal } from '../../actions/ui';
-import { eventAddNew, eventUpdated, eventClearActiveEvent } from '../../actions/events';
+import {  eventClearActiveEvent, eventStartAddNew, evetStartUpdate } from '../../actions/events';
 
 
 
@@ -108,21 +108,12 @@ export const CalendarModal = () => {
          return setTitleValid( false );         
       }
 
-      //TODO: Realizar grab en bbdd
-
       if( activeEvent ){
          console.log('paso por 1', formValues);
-         dispatch(eventUpdated( formValues ))
+         dispatch( evetStartUpdate( formValues ))
       } else {
          console.log('paso por 2', formValues);
-         dispatch( eventAddNew({
-            ...formValues,
-            id: new Date().getTime(),
-            user: {
-               _id: '123',
-               name: 'Ivan'
-            }
-         }) );
+         dispatch( eventStartAddNew( formValues ));
 
       }
 
