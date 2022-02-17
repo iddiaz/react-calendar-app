@@ -3,6 +3,8 @@ const baseUrl = process.env.REACT_APP_API_URL;
 export const fetchSinToken = ( endpoint, data, method = 'GET')=>{
    const url = `${ baseUrl }/${ endpoint }`; //localhost:4000/api/auth
 
+   console.log('url====????', url );
+
    if( method === 'GET'){
       return fetch( url );
 
@@ -20,7 +22,7 @@ export const fetchSinToken = ( endpoint, data, method = 'GET')=>{
    
 }
 
-export const fetchConToken = ( endpoint, data, method = 'GET')=>{
+export const fetchConToken = ( endpoint, data, method = 'GET')=>{ 
    const url = `${ baseUrl }/${ endpoint }`; 
    const token = localStorage.getItem('token') || '';
 

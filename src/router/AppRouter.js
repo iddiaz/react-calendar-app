@@ -24,7 +24,7 @@ export const AppRouter = () => {
       dispatch( startChecking() );
    }, [dispatch])
 
-   console.log(checking);
+   // console.log(checking);
 
    if( checking ){
       return (<h5>Espere...</h5>);

@@ -10,8 +10,10 @@ export const LoginScreen = () => {
     
   
      const [ formLoginValues, handleLoginInputChange ] = useForm({
-         lEmail: 'correo@correo.com',
-         lPassword: '123456'
+        //  lEmail: 'correo@correo.com',
+        //  lPassword: '123456'
+         lEmail: '',
+         lPassword: ''
      });
      
      const { lEmail, lPassword } = formLoginValues;
@@ -34,7 +36,7 @@ export const LoginScreen = () => {
      const handleLogin = ( e ) =>{
          e.preventDefault();
 
-         console.log( formLoginValues );
+        //  console.log( formLoginValues );
 
          dispatch( startLogin( lEmail, lPassword ) );
 

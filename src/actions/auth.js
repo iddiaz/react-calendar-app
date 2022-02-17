@@ -8,10 +8,10 @@ export const startLogin = ( email, password ) =>{
    //es asincrona usamos tunk...
    return async( dispatch ) =>{
 
-      console.log(email,password);
+      // console.log(email,password);
       const resp = await fetchSinToken('auth', {email,password}, 'POST');
       const body = await resp.json();
-      console.log(body);
+      // console.log(body);
 
       if( body.ok ){
          localStorage.setItem( 'token', body.token );
@@ -36,8 +36,8 @@ export const startRegister = ( email, password, name )=>{
       
       const resp = await fetchSinToken('auth/new', { email, password, name }, 'POST');
       const body = await resp.json();
-      console.log('resp', resp);
-      console.log('body', body);
+      // console.log('resp', resp);
+      // console.log('body', body);
 
       if( body.ok ){
          localStorage.setItem( 'token', body.token );
@@ -64,6 +64,8 @@ export const startChecking = ()=>{
       
       const resp = await fetchConToken('auth/renew', { } );
       const body = await resp.json();
+
+      console.log(body);
     
       if( body.ok ){
          localStorage.setItem( 'token', body.token );
